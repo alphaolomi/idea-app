@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:idea_app/idea_card.dart';
 import 'package:idea_app/idea_model.dart';
 
-class DogList extends StatelessWidget {
-  final List<Dog> doggos;
+class IdeaList extends StatelessWidget {
+  final List<Idea> dog_list;
 
-  DogList(this.doggos);
+  IdeaList(this.dog_list);
 
   ListView _buildList(context) {
     return new ListView.builder(
-      itemCount: doggos.length,
+      itemCount: dog_list.length,
       itemBuilder: (context, int) {
-        return new DogCard(doggos[int]);
+        return new IdeaCard(dog_list[int]);
       },
     );
   }

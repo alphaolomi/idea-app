@@ -3,22 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:idea_app/idea_model.dart';
 
-class DogDetailPage extends StatefulWidget {
-  final Dog dog;
+class IdeaDetailPage extends StatefulWidget {
+  final Idea idea;
 
-  DogDetailPage(this.dog);
+  IdeaDetailPage(this.idea);
 
   @override
-  _DogDetailPageState createState() => new _DogDetailPageState();
+  _IdeaDetailPageState createState() => new _IdeaDetailPageState();
 }
 
-class _DogDetailPageState extends State<DogDetailPage> {
+class _IdeaDetailPageState extends State<IdeaDetailPage> {
   double dogAvatarSize = 150.0;
   double _sliderValue = 10.0;
 
-  Widget get dogImage {
+  Widget get ideaImage {
     return new Hero(
-      tag: widget.dog,
+      tag: widget.idea,
       child: new Container(
         height: dogAvatarSize,
         width: dogAvatarSize,
@@ -44,14 +44,14 @@ class _DogDetailPageState extends State<DogDetailPage> {
           ],
           image: new DecorationImage(
             fit: BoxFit.cover,
-            image: new NetworkImage(widget.dog.imageUrl ?? ''),
+            image: new NetworkImage(widget.idea.imageUrl ?? ''),
           ),
         ),
       ),
     );
   }
 
-  Widget get dogProfile {
+  Widget get ideaProfile {
     return new Container(
       padding: new EdgeInsets.symmetric(vertical: 32.0),
       decoration: new BoxDecoration(
@@ -70,19 +70,19 @@ class _DogDetailPageState extends State<DogDetailPage> {
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          dogImage,
+          ideaImage,
           new Text(
-            widget.dog.name + '  🎾',
+            widget.idea.name + '  🎾',
             style: new TextStyle(fontSize: 32.0),
           ),
           new Text(
-            widget.dog.location,
+            widget.idea.location,
             style: new TextStyle(fontSize: 20.0),
           ),
           new Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-            child: new Text(widget.dog.description),
+            child: new Text(widget.idea.description),
           ),
           rating
         ],
@@ -98,7 +98,7 @@ class _DogDetailPageState extends State<DogDetailPage> {
           Icons.star,
           size: 40.0,
         ),
-        new Text(' ${widget.dog.rating} / 10',
+        new Text(' ${widget.idea.rating} / 10',
             style: Theme.of(context).textTheme.display2),
       ],
     );
@@ -155,7 +155,7 @@ class _DogDetailPageState extends State<DogDetailPage> {
     if (_sliderValue < 10) {
       _ratingErrorDialog();
     } else {
-      setState(() => widget.dog.rating = _sliderValue.toInt());
+      setState(() => widget.idea.rating = _sliderValue.toInt());
     }
   }
 
@@ -180,10 +180,10 @@ class _DogDetailPageState extends State<DogDetailPage> {
       backgroundColor: Colors.black87,
       appBar: new AppBar(
         backgroundColor: Colors.black87,
-        title: new Text('Meet ${widget.dog.name}'),
+        title: new Text('Meet ${widget.idea.name}'),
       ),
       body: new ListView(
-        children: <Widget>[dogProfile, addYourRating],
+        children: <Widget>[ideaProfile, addYourRating],
       ),
     );
   }

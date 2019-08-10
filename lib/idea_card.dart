@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:idea_app/idea_detail_page.dart';
 import 'package:idea_app/idea_model.dart';
 
-class DogCard extends StatefulWidget {
-  final Dog dog;
+class IdeaCard extends StatefulWidget {
+  final Idea idea;
 
-  DogCard(this.dog);
+  IdeaCard(this.idea);
 
   @override
-  DogCardState createState() {
-    return new DogCardState(dog);
+  IdeaCardState createState() {
+    return new IdeaCardState(idea);
   }
 }
 
-class DogCardState extends State<DogCard> {
-  Dog dog;
+class IdeaCardState extends State<IdeaCard> {
+  Idea idea;
   String renderUrl;
 
-  DogCardState(this.dog);
+  IdeaCardState(this.idea);
 
   void initState() {
     super.initState();
@@ -25,15 +25,15 @@ class DogCardState extends State<DogCard> {
   }
 
   void renderDogPic() async {
-    await dog.getImageUrl();
+    await idea.getImageUrl();
     setState(() {
-      renderUrl = dog.imageUrl;
+      renderUrl = idea.imageUrl;
     });
   }
 
   Widget get dogImage {
     var dogAvatar = new Hero(
-      tag: dog,
+      tag: idea,
       child: new Container(
         width: 100.0,
         height: 100.0,
@@ -94,16 +94,16 @@ class DogCardState extends State<DogCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                new Text(widget.dog.name,
+                new Text(widget.idea.name,
                     style: Theme.of(context).textTheme.headline),
-                new Text(widget.dog.location,
+                new Text(widget.idea.location,
                     style: Theme.of(context).textTheme.subhead),
                 new Row(
                   children: <Widget>[
                     new Icon(
                       Icons.star,
                     ),
-                    new Text(': ${widget.dog.rating} / 10')
+                    new Text(': ${widget.idea.rating} / 10')
                   ],
                 )
               ],
@@ -135,7 +135,7 @@ class DogCardState extends State<DogCard> {
 
   showDogDetailPage() {
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new DogDetailPage(dog);
+      return new IdeaDetailPage(idea);
     }));
   }
 }

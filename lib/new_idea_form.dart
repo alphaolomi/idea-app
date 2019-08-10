@@ -20,7 +20,7 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
         ),
       );
     } else {
-      var newDog = new Dog(nameController.text, locationController.text,
+      var newDog = new Idea(nameController.text, locationController.text,
           descriptionController.text);
       Navigator.of(context).pop(newDog);
     }

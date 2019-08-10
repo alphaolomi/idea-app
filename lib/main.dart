@@ -6,40 +6,43 @@ import 'package:idea_app/idea_model.dart';
 import 'package:idea_app/new_idea_form.dart';
 
 void main() {
-  runApp(new MyApp());
+  runApp(new App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'We Rate Dogs',
-      theme: new ThemeData(brightness: Brightness.dark),
-      home: new MyHomePage(title: 'We Rate Dogs'),
+      title: 'Idea App',
+      theme: new ThemeData(
+        brightness: Brightness.light,
+        accentColor: Colors.deepPurpleAccent,
+      ),
+      home: new HomePage(title: 'Idea App'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _HomePageState createState() => new _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var initialDoggos = <Dog>[]
-    ..add(new Dog('Ruby', 'Portland, OR, USA',
+class _HomePageState extends State<HomePage> {
+  var initialIdeas = <Idea>[]
+    ..add(new Idea('Ruby', 'Portland, OR, USA',
         'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
-    ..add(new Dog('Rex', 'Seattle, WA, USA', 'A Very Good Boy'))
-    ..add(new Dog('Rod Stewart', 'Prague, CZ', 'A Very Good Boy'))
-    ..add(new Dog('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
-    ..add(new Dog('Buddy', 'North Pole, Earth', 'A Very Good Boy'));
+    ..add(new Idea('Rex', 'Seattle, WA, USA', 'A Very Good Boy'))
+    ..add(new Idea('Rod Stewart', 'Prague, CZ', 'A Very Good Boy'))
+    ..add(new Idea('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
+    ..add(new Idea('Buddy', 'North Pole, Earth', 'A Very Good Boy'));
 
   Future<Null> _showNewDogForm() async {
-    Dog newDog = await Navigator.of(context).push(
+    Idea newDog = await Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
           return new AddDogFormPage();
@@ -47,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     if (newDog != null) {
-      initialDoggos.add(newDog);
+      initialIdeas.add(newDog);
     }
   }
 
@@ -81,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         child: new Center(
-          child: new DogList(initialDoggos),
+          child: new IdeaList(initialIdeas),
         ),
       ),
     );
