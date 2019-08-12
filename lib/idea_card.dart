@@ -77,19 +77,12 @@ class IdeaCardState extends State<IdeaCard> {
   }
 
   Widget get dogCard {
-    return new Positioned(
-      right: 0.0,
-      child: new Container(
+    return  new Container(
         width: 290.0,
         height: 115.0,
         child: new Card(
-          color: Colors.black87,
           child: new Padding(
-            padding: const EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-              left: 64.0,
-            ),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 64.0),
             child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -110,7 +103,6 @@ class IdeaCardState extends State<IdeaCard> {
             ),
           ),
         ),
-      ),
     );
   }
 

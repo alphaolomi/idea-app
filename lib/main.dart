@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:idea_app/idea_list.dart';
 import 'package:idea_app/idea_model.dart';
 import 'package:idea_app/new_idea_form.dart';
+import 'package:idea_app/util/const.dart';
 
 void main() {
   runApp(new App());
@@ -11,15 +12,16 @@ void main() {
 
 class App extends StatelessWidget {
   @override
+
+  bool isDark = false;
+
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Idea App',
-      theme: new ThemeData(
-        brightness: Brightness.light,
-        accentColor: Colors.deepPurpleAccent,
-      ),
-      home: new HomePage(title: 'Idea App'),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: Constants.appName,
+        theme: isDark ? Constants.darkTheme : Constants.lightTheme,
+        home: HomePage(),
+        );
   }
 }
 
