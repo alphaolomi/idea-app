@@ -1,33 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:ideaapp/models/authentication.dart';
-import 'package:ideaapp/models/user.dart';
 import 'package:ideaapp/models/validation.dart';
+import 'package:ideaapp/providers/auth_provider.dart';
+import 'package:ideaapp/theme/color.dart';
 import 'package:ideaapp/views/welcome.dart';
 import 'package:ideaapp/widgets/custom_button.dart';
 import 'package:ideaapp/widgets/form_input_decoration.dart';
 import 'package:ideaapp/widgets/loader.dart';
 import 'package:ideaapp/widgets/page_header.dart';
-
-//import 'package:firebase_auth/firebase_auth.dart';
-//
-//import '../../Widgets/PageHeader.dart';
-//import '../../Widgets/CustomButton.dart';
-//import '../../Widgets/FormInputDecoration.dart';
-//
-//import '../../Widgets/Loader.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
-//  VoidCallback UpdateLoginState;
-
-//  Login({Key key, this.UpdateLoginState});
-
   createState() => LoginState();
 }
 
 class LoginState extends State<Login> {
-  Authentication _authentication;
   FocusNode email, password;
   TextEditingController emailCtrl, passwordCtrl;
   bool _autoValid = false, loader = false;
@@ -36,7 +24,6 @@ class LoginState extends State<Login> {
   @override
   void initState() {
     loader = false;
-    _authentication = Authentication();
     super.initState();
     emailCtrl = TextEditingController();
     passwordCtrl = TextEditingController();
@@ -53,7 +40,7 @@ class LoginState extends State<Login> {
     passwordCtrl.dispose();
   }
 
-  login(BuildContext context) async {
+  login(BuildContext context) {
     password.unfocus();
     email.unfocus();
     setState(() {
@@ -64,25 +51,29 @@ class LoginState extends State<Login> {
         loader = true;
       });
       try {
-        User _user = await _authentication.loginUser(
+        print('ok start');
+        Provider.of<AuthDataProvider>(context, listen: false).loginUser(
           email: emailCtrl.value.text,
           password: passwordCtrl.value.text,
         );
+        print('ok');
         setState(() {
           loader = false;
         });
-        if (_user != null) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
+//        if (_user != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
 //                  builder: (BuildContext context) => Welcome(user: _user.user)),
-              builder: (BuildContext context) => WelcomeScreen(),
-            ),
-            ModalRoute.withName('/root'),
-          );
-        }
+            builder: (BuildContext context) => WelcomeScreen(),
+          ),
+          ModalRoute.withName('/root'),
+        );
+//        }
       } on PlatformException catch (e) {
-        _authentication.showToast(context, _authentication.handleError(e));
+//        Provider.of<AuthDataProvider>(context, listen: false).showToast(context, _authentication.handleError(e));
+//        _authentication.showToast(context, _authentication.handleError(e));
+        print(e);
         setState(() {
           loader = false;
         });
@@ -165,9 +156,9 @@ class LoginState extends State<Login> {
               SizedBox(
                 height: 20.0,
               ),
-              PageHeader(title: "Sing In"),
+              PageHeader(title: "Sign In"),
               SizedBox(
-                height: 30.0,
+                height: 70.0,
               ),
               TextFormField(
                 focusNode: email,
@@ -216,7 +207,7 @@ class LoginState extends State<Login> {
               ),
               CustomButton(
                 text: "Login",
-                color: Colors.green,
+                color: primaryColor,
                 onPressed: () => login(context),
               ),
               SizedBox(
@@ -242,30 +233,6 @@ class LoginState extends State<Login> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Container(
-                alignment: Alignment.center,
-                child:
-                    Text("OR", style: TextStyle(fontWeight: FontWeight.w500)),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              CustomButton(
-                text: "Connect with facebook",
-                onPressed: () {},
-                color: Colors.indigo,
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              CustomButton(
-                text: "Connect with twitter",
-                color: Colors.blue,
-                onPressed: () {},
-              )
             ],
           ),
         ),

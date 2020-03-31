@@ -22,9 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Ideas'),
-        ),
+        title:Text('Ideas'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),

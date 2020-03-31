@@ -1,23 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:ideaapp/providers/auth_provider.dart';
 import 'package:ideaapp/providers/idea_model.dart';
+import 'package:ideaapp/views/auth/landing_screen.dart';
 import 'package:ideaapp/views/home_screen.dart';
+import 'package:ideaapp/views/welcome.dart';
 import 'package:provider/provider.dart';
 import 'theme/main.dart';
 
-class TodosApp extends StatelessWidget {
+class TodosApp extends StatefulWidget {
+  @override
+  _TodosApp createState() => _TodosApp();
+}
+
+class _TodosApp extends State<TodosApp> {
+  AuthDataProvider _dataProvider = AuthDataProvider();
+  bool _isAuthenticated = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _dataProvider.autoAuthenticate().then((status) {
+      print('status' + status.toString());
+      setState(() {
+        _isAuthenticated = status;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MultiProvider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ideally',
         theme: appThemeLight,
-        home: HomeScreen(),
+        home: _isAuthenticated ? WelcomeScreen() : LandingScreen(),
       ),
-      create: (BuildContext context) {
-        return IdeaModel();
-      },
-
+      providers: [
+        ChangeNotifierProvider(create: (_) => IdeaModel()),
+        ChangeNotifierProvider(create: (_) => AuthDataProvider()),
+      ],
     );
   }
 }

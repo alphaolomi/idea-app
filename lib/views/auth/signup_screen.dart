@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:ideaapp/models/authentication.dart';
 import 'package:ideaapp/models/user.dart';
 import 'package:ideaapp/models/validation.dart';
+import 'package:ideaapp/providers/auth_provider.dart';
+import 'package:ideaapp/theme/color.dart';
 import 'package:ideaapp/views/welcome.dart';
 import 'package:ideaapp/widgets/custom_button.dart';
 import 'package:ideaapp/widgets/form_input_decoration.dart';
@@ -14,10 +15,11 @@ class Signup extends StatefulWidget {
 }
 
 class SignupState extends State<Signup> {
-  Authentication _authentication;
+  AuthDataProvider _authentication;
   FocusNode username, email, password, confirmPassword;
   TextEditingController emailCtrl, passwordCtrl, usernameCtrl, cpasswordCtrl;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   bool _autoValid = false, loader = false;
 
@@ -25,7 +27,7 @@ class SignupState extends State<Signup> {
   void initState() {
     super.initState();
 
-    _authentication = Authentication();
+    _authentication = AuthDataProvider();
 
     _autoValid = false;
     loader = false;
@@ -68,24 +70,24 @@ class SignupState extends State<Signup> {
           loader = true;
         });
         print("SUCCESS"); // okay
-        User _user = await _authentication.singupUser(
-            email: emailCtrl.value.text, password: passwordCtrl.value.text);
-        print(_user); // debug
+        User _user = await _authentication.signupUser(
+            name: usernameCtrl.value.text,
+            email: emailCtrl.value.text,
+            password: passwordCtrl.value.text);
+        print('user: ' + _user.toString()); // debug
         if (_user != null) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => WelcomeScreen(
-//                      user:_user.user,
-                    ),
-              ),
-              ModalRoute.withName('/root'));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WelcomeScreen(),
+            ),
+          );
         }
         setState(() {
           loader = false;
         });
       } catch (e) {
-        _authentication.showToast(context, _authentication.handleError(e));
+       print(e);
         setState(() {
           loader = false;
         });
@@ -126,7 +128,7 @@ class SignupState extends State<Signup> {
               ),
               PageHeader(title: "Register Now"),
               SizedBox(
-                height: 30.0,
+                height: 80.0,
               ),
               TextFormField(
                 controller: usernameCtrl,
@@ -135,8 +137,9 @@ class SignupState extends State<Signup> {
                 style: FormInputDecoration.customTextStyle(),
                 textAlign: TextAlign.center,
                 textCapitalization: TextCapitalization.none,
-                decoration:
-                    FormInputDecoration.formInputDesign(name: "Username"),
+                decoration: FormInputDecoration.formInputDesign(
+                  name: "Username",
+                ),
                 onFieldSubmitted: (node) {
                   username.unfocus();
                   FocusScope.of(context).requestFocus(email);
@@ -148,7 +151,7 @@ class SignupState extends State<Signup> {
                     fieldType: VALIDATION_TYPE.TEXT),
               ),
               SizedBox(
-                height: 20.0,
+                height: 20.0
               ),
               TextFormField(
                 controller: emailCtrl,
@@ -158,8 +161,9 @@ class SignupState extends State<Signup> {
                 style: FormInputDecoration.customTextStyle(),
                 textAlign: TextAlign.center,
                 textCapitalization: TextCapitalization.none,
-                decoration:
-                    FormInputDecoration.formInputDesign(name: "Email Address"),
+                decoration: FormInputDecoration.formInputDesign(
+                  name: "Email Address",
+                ),
                 onFieldSubmitted: (node) {
                   email.unfocus();
                   FocusScope.of(context).requestFocus(password);
@@ -181,8 +185,9 @@ class SignupState extends State<Signup> {
                 style: FormInputDecoration.customTextStyle(),
                 textAlign: TextAlign.center,
                 textCapitalization: TextCapitalization.none,
-                decoration:
-                    FormInputDecoration.formInputDesign(name: "Password"),
+                decoration: FormInputDecoration.formInputDesign(
+                  name: "Password",
+                ),
                 onFieldSubmitted: (node) {
                   password.unfocus();
                   FocusScope.of(context).requestFocus(confirmPassword);
@@ -194,7 +199,7 @@ class SignupState extends State<Signup> {
                     fieldType: VALIDATION_TYPE.PASSWORD),
               ),
               SizedBox(
-                height: 20.0,
+                height: 20.0
               ),
               TextFormField(
                 controller: cpasswordCtrl,
@@ -205,46 +210,26 @@ class SignupState extends State<Signup> {
                 textAlign: TextAlign.center,
                 textCapitalization: TextCapitalization.none,
                 decoration: FormInputDecoration.formInputDesign(
-                    name: "Confirm password"),
+                  name: "Confirm password",
+                ),
                 onFieldSubmitted: (node) {
                   confirmPassword.unfocus();
                   signup(context);
                 },
                 validator: (value) => CheckFieldValidation(
-                    val: value,
-                    password: passwordCtrl.value.text,
-                    fieldName: "Confirm password",
-                    fieldType: VALIDATION_TYPE.CONFIRM_PASSWORD),
+                  val: value,
+                  password: passwordCtrl.value.text,
+                  fieldName: "Confirm password",
+                  fieldType: VALIDATION_TYPE.CONFIRM_PASSWORD,
+                ),
               ),
               SizedBox(
-                height: 20.0,
+                height: 20.0
               ),
               CustomButton(
                 text: "Sign up",
-                color: Colors.green,
+                color: primaryColor,
                 onPressed: () => signup(context),
-              ),
-              Container(
-                height: 50.0,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Text(
-                  "OR",
-                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),
-                ),
-              ),
-              CustomButton(
-                text: "Connect with facebook",
-                color: Colors.indigo,
-                onPressed: () {},
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              CustomButton(
-                text: "Connect with twitter",
-                color: Colors.blue,
-                onPressed: () {},
               ),
             ],
           ),

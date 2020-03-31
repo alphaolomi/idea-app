@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ideaapp/theme/color.dart';
 import 'package:ideaapp/widgets/custom_button.dart';
 
 import 'login_screen.dart';
@@ -11,13 +13,14 @@ class LandingScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Image.asset(
-              "assets/images/foody.jpg",
-              fit: BoxFit.cover,
+            child: Center(
+              child: FaIcon(
+                FontAwesomeIcons.lightbulb,size: 160,
+              ),
             ),
           ),
           SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -25,7 +28,7 @@ class LandingScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  ("Foodsy").toUpperCase(),
+                  ("Ideally").toUpperCase(),
                   style: TextStyle(fontSize: 30.0),
                 ),
                 SizedBox(
@@ -40,7 +43,7 @@ class LandingScreen extends StatelessWidget {
                         ));
                   },
                   text: "Sign Up",
-                  color: Colors.green,
+                  color: primaryColor,
                   width: 250.0,
                 ),
                 SizedBox(
