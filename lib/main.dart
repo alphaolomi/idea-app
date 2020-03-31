@@ -1,51 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:idea_app/services/sharedPref.dart';
-import 'screens/home.dart';
-import 'data/theme.dart';
+import 'package:ideaapp/providers/idea_model.dart';
+import 'package:ideaapp/views/home_screen.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(TodosApp());
 
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeData theme = appThemeLight;
-  @override
-  void initState() {
-    super.initState();
-    updateThemeFromSharedPref();
-  }
-
+class TodosApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: theme,
-      home: MyHomePage(title: 'Home', changeTheme: setTheme),
+    return ChangeNotifierProvider(
+      builder: (context) => IdeaModel(),
+      child: MaterialApp(
+        title: 'Ideally',
+        theme: ThemeData.light(),
+        home: HomeScreen(),
+      ),
     );
-  }
-
-  setTheme(Brightness brightness) {
-    if (brightness == Brightness.dark) {
-      setState(() {
-        theme = appThemeDark;
-      });
-    } else {
-      setState(() {
-        theme = appThemeLight;
-      });
-    }
-  }
-
-  void updateThemeFromSharedPref() async {
-    String themeText = await getThemeFromSharedPref();
-    if (themeText == 'light') {
-      setTheme(Brightness.light);
-    } else {
-      setTheme(Brightness.dark);
-    }
   }
 }
