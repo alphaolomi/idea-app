@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideaapp/providers/app_setting.dart';
 import 'package:ideaapp/providers/auth_provider.dart';
 import 'package:ideaapp/providers/idea_model.dart';
 import 'package:ideaapp/views/auth/landing_screen.dart';
@@ -19,6 +20,7 @@ class _TodosApp extends State<TodosApp> {
   @override
   void initState() {
     super.initState();
+    updateThemeFromSharedPref();
     _dataProvider.autoAuthenticate().then((status) {
       print('status' + status.toString());
       setState(() {
@@ -29,17 +31,23 @@ class _TodosApp extends State<TodosApp> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Provider.of<SettingDataProvider>(context).isDark;
     return MultiProvider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ideally',
-        theme: appThemeLight,
+        theme: isDark ? appThemeDark : appThemeLight,
         home: _isAuthenticated ? WelcomeScreen() : LandingScreen(),
       ),
       providers: [
+        ChangeNotifierProvider(create: (_) => SettingDataProvider()),
         ChangeNotifierProvider(create: (_) => IdeaModel()),
         ChangeNotifierProvider(create: (_) => AuthDataProvider()),
       ],
     );
+  }
+
+  void updateThemeFromSharedPref() {
+
   }
 }

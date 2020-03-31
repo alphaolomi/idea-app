@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ideaapp/providers/app_setting.dart';
 import 'package:ideaapp/views/about.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,8 +24,8 @@ class SettingsScreen extends StatelessWidget {
                 title: 'Dark Mode',
                 leading: Icon(Icons.color_lens),
                 switchValue: isDark,
-                onToggle: (bool value) {
-                  isDark = value;
+                onToggle: (value) {
+                  Provider.of<SettingDataProvider>(context, listen: false).changeTheme();
                 },
               )
             ],
