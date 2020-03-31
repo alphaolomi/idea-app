@@ -15,7 +15,9 @@ class TodosApp extends StatefulWidget {
 
 class _TodosApp extends State<TodosApp> {
   AuthDataProvider _dataProvider = AuthDataProvider();
+  SettingDataProvider _settingDataProvider = SettingDataProvider();
   bool _isAuthenticated = false;
+  bool _isDark;
 
   @override
   void initState() {
@@ -31,12 +33,11 @@ class _TodosApp extends State<TodosApp> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = Provider.of<SettingDataProvider>(context).isDark;
     return MultiProvider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ideally',
-        theme: isDark ? appThemeDark : appThemeLight,
+        theme: _isDark ? appThemeDark : appThemeLight,
         home: _isAuthenticated ? WelcomeScreen() : LandingScreen(),
       ),
       providers: [
@@ -47,7 +48,14 @@ class _TodosApp extends State<TodosApp> {
     );
   }
 
-  void updateThemeFromSharedPref() {
+  ThemeData _buildTheme() {
+    bool isDark = Provider.of<SettingDataProvider>(context).isDark;
+    return isDark ? appThemeDark : appThemeLight;
+  }
 
+  void updateThemeFromSharedPref() {
+    setState(() {
+      _isDark = _settingDataProvider.isDark;
+    });
   }
 }
