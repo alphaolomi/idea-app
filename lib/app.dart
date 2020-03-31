@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideaapp/providers/idea_model.dart';
 import 'package:ideaapp/views/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'data/theme.dart';
+import 'theme/main.dart';
 
 class TodosApp extends StatelessWidget {
   @override

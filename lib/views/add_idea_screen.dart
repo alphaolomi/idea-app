@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ideaapp/models/idea.dart';
 import 'package:ideaapp/providers/idea_model.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AddIdeaScreen extends StatefulWidget {
   @override
@@ -10,7 +9,7 @@ class AddIdeaScreen extends StatefulWidget {
 }
 
 class _AddIdeaScreenState extends State<AddIdeaScreen> {
-  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+//  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   final ideaTitleController = TextEditingController();
   bool completedStatus = false;
@@ -101,7 +100,7 @@ class _AddIdeaScreenState extends State<AddIdeaScreen> {
 //                      if (_formKey.currentState.validate()) {
 //                        Scaffold.of(context).showSnackBar(
 //                            SnackBar(content: Text('Processing Data')));
-                        onAdd();
+                      onAdd();
 //                      } else {
 //                        Scaffold.of(context).showSnackBar(SnackBar(
 //                            content: Text('Fill all required fields')));
@@ -116,5 +115,4 @@ class _AddIdeaScreenState extends State<AddIdeaScreen> {
       ),
     );
   }
-
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ideaapp/models/idea.dart';
+
 
 // ignore: must_be_immutable
 class IdeaDetailScreen extends StatelessWidget {

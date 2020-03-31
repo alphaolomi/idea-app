@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideaapp/providers/idea_model.dart';
 import 'package:ideaapp/views/settings_screen.dart';
-import 'package:ideaapp/widgets/idea_list.dart';
+import 'package:ideaapp/widgets/idea/idea_list.dart';
 import 'package:provider/provider.dart';
 
 import 'add_idea_screen.dart';

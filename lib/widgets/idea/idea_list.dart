@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideaapp/models/idea.dart';
-import 'package:ideaapp/widgets/idea_list_item.dart';
+import 'package:ideaapp/widgets/idea/idea_list_item.dart';
 
 class IdeaList extends StatelessWidget {
   final List<Idea> ideas;
