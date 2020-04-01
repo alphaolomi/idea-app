@@ -4,6 +4,8 @@ import 'package:ideaapp/providers/idea_model.dart';
 
 import 'package:ideaapp/theme/color.dart';
 import 'package:ideaapp/views/auth/landing_screen.dart';
+import 'package:ideaapp/views/home_screen.dart';
+import 'package:ideaapp/views/settings_screen.dart';
 import 'package:ideaapp/widgets/idea/idea_list.dart';
 import 'package:provider/provider.dart';
 
@@ -125,6 +127,20 @@ class WelcomeScreen extends StatelessWidget {
       onTap: () {
         if (id == "LOGOUT") {
           logout(_scaffoldKey.currentContext);
+        }else if(id == "SETTING"){
+          Navigator.push(
+            _scaffoldKey.currentContext,
+            MaterialPageRoute(
+              builder: (context) => SettingsScreen(),
+            ),
+          );
+        }else if(id == "MY_IDEAS"){
+          Navigator.push(
+            _scaffoldKey.currentContext,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
         }
       },
       child: Padding(
