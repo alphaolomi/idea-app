@@ -1,15 +1,12 @@
 <h1 align="center">idea-app 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.2.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://flutter.dev/docs" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="#" target="_blank">
-    <img alt="License: Copyright 2020 Emanate" src="https://img.shields.io/badge/License-Copyright 2020 Emanate-yellow.svg" />
-  </a>
+  <a href="https://codemagic.io/apps/5f40bba6d69c211efcfc06d1/5f40bba6d69c211efcfc06d0/latest_build" target="_blank">
+    <img alt="Build: codemagic" src="https://api.codemagic.io/apps/5f40bba6d69c211efcfc06d1/5f40bba6d69c211efcfc06d0/status_badge.svg" />
+  </a>  
   <a href="https://twitter.com/alphaolomi" target="_blank">
     <img alt="Twitter: alphaolomi" src="https://img.shields.io/twitter/follow/alphaolomi.svg?style=social" />
-  </a>
+  </a>  
 </p>
 
 > A new Flutter application.
