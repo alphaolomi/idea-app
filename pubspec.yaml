@@ -11,7 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   settings_ui: ^0.4.0
   font_awesome_flutter: ^8.5.0
-  rxdart: ^0.24.0
+  rxdart: ^0.25.0
   shared_preferences: ^0.5.4+8
   provider: ^4.0.0
   http: ^0.12.0+2
