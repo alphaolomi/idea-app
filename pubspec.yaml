@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  settings_ui: ^0.6.0
+  settings_ui: ^1.0.0
   font_awesome_flutter: ^9.0.0
   rxdart: ^0.26.0
   shared_preferences: ^2.0.0
